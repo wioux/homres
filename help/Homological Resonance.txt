@@ -1,0 +1,6 @@
+proposal
+
+A neural network has high local connectivity, but generally very low global connectivity. If neural pathways are believed to perform a feed forward dimensional reduction, it is unclear how disparate parts of the brain communicate with each other so fluidly. A new neural model is proposed in this paper which suggests that clusters of neurons communicate with each other across the network by encoding their structure as a resonance of the inputs that excite them, and then transmit that resonance as chain of wavefronts which propagate through gray matter in bands, stimulating any topologically similar cluster of neurons with algebraically similar inputs. We further suggest that sleep is a process for allowing these structures to propagate themselves with higher fidelity via the glial mesh in the form of poorly understood calcium ion waves.
+
+Analogy allows us to keep one copy of the prototype of the structure of an argument or dimensional reduction and apply it to inputs which behave similarly, . The equivalence classes of these structures allow brains to communicate ideas with each other, so it is reasonable to conclude that there might be some mechanism in the brain which allows it to communicate with itself in such a way.
+
