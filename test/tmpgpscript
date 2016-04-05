@@ -1,5 +1,0 @@
-set term gif animate delay 20
-set output '../data/test.gif'
-stats '../data/mpthresh.dat' nooutput
-N = int(STATS_records) - 1
-do for [i=0:N] {plot '../data/mpthresh.dat' every :::i:(i+1)}
