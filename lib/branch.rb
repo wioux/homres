@@ -94,6 +94,6 @@ class Branch
   end
 
   def incr t
-    updatemembrane t0 + t
+    update t0 + t
   end
 end
