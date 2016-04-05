@@ -2,7 +2,7 @@
 require 'matrix'
 require 'ostruct'
 
-class EQBranch
+class Branch
   Constants =
     begin
       mpr = 0 #unused for the moment

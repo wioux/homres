@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-require 'EQBranch'
+require 'Branch'
 
-RSpec.describe EQBranch do
+RSpec.describe Branch do
   describe "#prop_time" do
     pending "it should be roughly equal to ||u-v||"
   end
