@@ -1,5 +1,6 @@
 
 require 'vector'
+require 'ostruct'
 
 class EQBranch
   Constants =
