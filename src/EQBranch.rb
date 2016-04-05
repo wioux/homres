@@ -1,5 +1,7 @@
 require_relative 'Event'
-require_relative 'Vector'
+
+require 'vector'
+
 require 'gl'
 require 'gosu'
 require 'distribution'
@@ -39,7 +41,7 @@ class EQBranch
     @mpt = 0
     @thresht = 1
 
-    @prop_time = (u - v).length
+    @prop_time = (u - v).norm
 
     ##this is not even remotely accurate for average branch length with a path with a random walk derivative,
     ##the goal is simply to create some poisson-ish noise.
