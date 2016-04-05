@@ -17,7 +17,7 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-libdir = File.expand_path('src')
+libdir = File.expand_path('lib')
 $LOAD_PATH << libdir unless $LOAD_PATH.include?(libdir)
 
 RSpec.configure do |config|
