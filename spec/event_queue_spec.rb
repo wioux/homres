@@ -1,7 +1,7 @@
 
 require 'spec_helper'
 
-require 'EventQueue'
+require 'event_queue'
 
 RSpec.describe EventQueue do
   let(:queue){ EventQueue.new }
