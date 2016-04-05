@@ -27,7 +27,7 @@ class Branch
   attr_accessor :u, :v
 
   # t0, membrane threshold/potential at t0
-  attr_accessor :t0, :thresht, :mpt
+  attr_accessor :t0, :threshold, :potential
 
   attr_accessor :prop_time
 
@@ -36,8 +36,8 @@ class Branch
 
     #async variables
     @t0 = t0
-    @mpt = 0
-    @thresht = 1
+    @potential = 0
+    @threshold = 1
 
     @prop_time = (u - v).norm
 
@@ -54,8 +54,8 @@ class Branch
 
   ##TODO:naturalize reset values.
   def fire
-    self.thresht = 1
-    self.mpt = -0.1
+    self.threshold = 1
+    self.potential = -0.1
     @outputs.each do |x|
       branch, weight = x
       branch.add weight
@@ -67,9 +67,9 @@ class Branch
     d, k, i1 = Constants.d, Constants.k, Constants.i1
 
     dt = t - t0
-    c1 = thresht - i1*mpt
-    self.thresht = c1*Math::E**(-k*dt) + i1*mpt*d*dt
-    self.mpt *= d**dt
+    c1 = threshold - i1*potential
+    self.threshold = c1*Math::E**(-k*dt) + i1*potential*d*dt
+    self.potential *= d**dt
     self.t0  =  t
   end
 
@@ -77,10 +77,10 @@ class Branch
   ##Since the addition itself is treated as a discontinuity, our analytic solutions will change
   ##with respect to d
   def add weight
-    self.mpt += weight
-    if mpt > thresht
+    self.potential += weight
+    if potential > threshold
       fire t0
-    elsif mpt < 0 #the condition might be stricter than this
+    elsif potential < 0 #the condition might be stricter than this
       #solve for when mp and T are equal, fire then
       fire t0 + solvespike
     end
@@ -89,8 +89,8 @@ class Branch
   def solvespike
     i1, i2, i3 = Constants.i1, Constants.i2, Constants.i3
 
-    c1 = thresht - i1*mpt
-    Math.log((c1/mpt)*i2) / i3
+    c1 = threshold - i1*potential
+    Math.log((c1/potential)*i2) / i3
   end
 
   def incr t
