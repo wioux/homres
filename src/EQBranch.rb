@@ -11,16 +11,26 @@ class EQBranch
   def self.setepsilons #synaptic delay, ap_length, and ap_speed
   end
 
-  def self.setconstants
-    #hopefully we do not have to solve this one level deeper with k and d
-    @@mpr = 0 #unused for the moment
-    @@k = 0.9
-    @@d = 0.9
-    @@logd = Math.log(@@d)
-    @@i1 = @@k/(@@k + Math.log(@@d))
-    @@i2 = (@@logd + @@k)/@@logd
-    @@i3 = @@logd - @@k
-  end
+  Contants =
+    begin
+      mpr = 0 #unused for the moment
+      k = 0.9
+      d = 0.9
+      logd = Math.log(d)
+      i1 = k/(k + Math.log(d))
+      i2 = (logd + k)/logd
+      i3 = logd - k
+
+      OpenStruct.new(
+        mpr: mpr,
+        k: k,
+        d: d,
+        logd: logd,
+        i1: i1,
+        i2: i2,
+        i3: i3
+      )
+    end
 
   attr_accessor :u, :v
   attr_accessor :t0, :thresht, :mpt
@@ -60,10 +70,12 @@ class EQBranch
 
   ##This function pushes the membrane state to time t, where presumably there will be a discontinuity
   def updatemembrane t
+    d, k, i1 = Constants.d, Constants.k, Constants.i1
+
     dt = t - t0
-    c1 = thresht - @@i1*mpt
-    self.thresht = c1*Math::E**(-@@k*dt) + @@i1*mpt*@@d**dt
-    self.mpt *= @@d**(dt)
+    c1 = thresht - i1*mpt
+    self.thresht = c1*Math::E**(-k*dt) + i1*mpt*d*dt
+    self.mpt *= d**dt
     self.t0  =  t
   end
 
@@ -83,8 +95,10 @@ class EQBranch
   end
 
   def solvespike
-    c1 = thresht - @@i1*mpt
-    Math.log((c1/mpt)*@@i2)/@@i3
+    i1, i2, i3 = Constants.i1, Constants.i2, Constants.i3
+
+    c1 = thresht - i1*mpt
+    Math.log((c1/mpt)*i2) / i3
   end
 
   def fire t
