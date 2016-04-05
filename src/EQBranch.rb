@@ -1,10 +1,5 @@
-require_relative 'Event'
 
 require 'vector'
-
-require 'gl'
-require 'gosu'
-require 'distribution'
 
 class EQBranch
   Constants =
