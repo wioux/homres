@@ -7,7 +7,7 @@ require 'gosu'
 require 'distribution'
 
 class EQBranch
-  Contants =
+  Constants =
     begin
       mpr = 0 #unused for the moment
       k = 0.9
