@@ -40,9 +40,10 @@ class EQBranch
     @thresht = 1
 
     @prop_time = (u - v).length
-    @prop_time *= 1 + (rand+rand+rand+rand)/2.0
+
     ##this is not even remotely accurate for average branch length with a path with a random walk derivative,
     ##the goal is simply to create some poisson-ish noise.
+    @prop_time *= 1 + (rand+rand+rand+rand)/2.0
 
     @outputs = []
   end
