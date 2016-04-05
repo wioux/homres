@@ -1,5 +1,4 @@
 require_relative 'Event'
-require_relative 'EventQueue'
 require_relative 'Vector'
 require 'gl'
 require 'gosu'
@@ -33,14 +32,17 @@ class EQBranch
     end
 
   attr_accessor :u, :v
+
+  # t0, membrane threshold/potential at t0
   attr_accessor :t0, :thresht, :mpt
-  def initialize(u, v)
+
+  def initialize(t0, u, v)
     @u, @v = u, v
 
     #async variables
-    @t0 = @@eventqueue.current#the time at which the last calculation was performed,
-    @mpt = 0 #membrane potential at time t
-    @thresht = 1 #threshold at time t
+    @t0 = t0
+    @mpt = 0
+    @thresht = 1
 
     @prop_time = (u - v).length
     @prop_time *= 1 + (rand+rand+rand+rand)/2.0
@@ -50,26 +52,22 @@ class EQBranch
     @outputs = []
   end
 
-  def addoutput branch,weight
-    @outputs << [branch,weight]
-  end
-
-  def setproc #only construct this once. Why not?
-    @event = Proc.new{onfire}
+  def connect(branch, weight)
+    @outputs << [branch, weight]
   end
 
   ##TODO:naturalize reset values.
-  def onfire
+  def fire
     self.thresht = 1
     self.mpt = -0.1
     @outputs.each do |x|
       branch, weight = x
-      branch.addweight weight, @@eventqueue.current##solves mp(t) = T(t) and adds a new fire event at t, if it exists
+      branch.add weight
     end
   end
 
   ##This function pushes the membrane state to time t, where presumably there will be a discontinuity
-  def updatemembrane t
+  def update t
     d, k, i1 = Constants.d, Constants.k, Constants.i1
 
     dt = t - t0
@@ -82,9 +80,9 @@ class EQBranch
   ##This function adds a weighted input to my branch at time t. there are three steps to this.
   ##Since the addition itself is treated as a discontinuity, our analytic solutions will change
   ##with respect to d
-  def addweight weight, t
-    updatemembrane t
-    @@eventqueue.cancel @event
+  def add weight
+    update t
+
     self.mpt += weight
     if mpt > thresht
       fire t0
@@ -101,15 +99,7 @@ class EQBranch
     Math.log((c1/mpt)*i2) / i3
   end
 
-  def fire t
-    @@eventqueue.insert @event, t + @prop_time
-  end
-
   def incr t
     updatemembrane t0 + t
-  end
-
-  def self.seteventqueue eventqueue
-    @@eventqueue = eventqueue
   end
 end
