@@ -1,5 +1,5 @@
 
-require 'vector'
+require 'matrix'
 require 'ostruct'
 
 class EQBranch
