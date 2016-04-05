@@ -5,11 +5,6 @@ require 'gosu'
 require 'distribution'
 
 class EQBranch
-  #for the moment, we will assume that every node (Branch x Branch -> Branch) obeys the hodgkin-huxley equations, or something
-  #similar enough to be discretized.
-  def self.setepsilons #synaptic delay, ap_length, and ap_speed
-  end
-
   Contants =
     begin
       mpr = 0 #unused for the moment
