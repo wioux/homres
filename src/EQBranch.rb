@@ -29,6 +29,8 @@ class EQBranch
   # t0, membrane threshold/potential at t0
   attr_accessor :t0, :thresht, :mpt
 
+  attr_accessor :prop_time
+
   def initialize(t0, u, v)
     @u, @v = u, v
 
