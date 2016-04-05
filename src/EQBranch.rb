@@ -77,8 +77,6 @@ class EQBranch
   ##Since the addition itself is treated as a discontinuity, our analytic solutions will change
   ##with respect to d
   def add weight
-    update t
-
     self.mpt += weight
     if mpt > thresht
       fire t0
