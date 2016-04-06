@@ -1,36 +1,29 @@
-require 'priority_queue'
-class EventQueue
-	attr_accessor :current
-	def initialize
-		@current=0.0
-		@events=PriorityQueue.new
-	end
-	def pop
-		if @events.min
-			@current+=@events.min[1]
-			@events.delete_min[0].call
-		end
-	end
-	def cancel event
-		@events.delete(event)
-	end
-	def insert event, time
-		@events.push event, time
-	end
-	
-	#debug
 
-	def nexteventtime
-		if @events.min
-			return @events.min[1]
-		else 
-			return false
-		end
-	end
-	def cancelall
-		@current=0.0
-		@events=PriorityQueue.new
-	end
+require 'priority_queue'
+
+class EventQueue
+  attr_accessor :time
+
+  def initialize
+    @time = 0.0
+    @events=PriorityQueue.new
+  end
+
+  def pop
+    if @events.min
+      @time += @events.min[1]
+      @events.delete_min[0]
+    end
+  end
+
+  def cancel(action)
+    @events.delete(action)
+  end
+
+  def at(time, &action)
+    @events.push(action, time)
+    action
+  end
 end
 
 #### Docs

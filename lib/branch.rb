@@ -56,10 +56,6 @@ class Branch
   def fire
     self.threshold = 1
     self.potential = -0.1
-    @outputs.each do |x|
-      branch, weight = x
-      branch.add weight
-    end
   end
 
   ##This function pushes the membrane state to time t, where presumably there will be a discontinuity
@@ -78,12 +74,6 @@ class Branch
   ##with respect to d
   def add weight
     self.potential += weight
-    if potential > threshold
-      fire t0
-    elsif potential < 0 #the condition might be stricter than this
-      #solve for when mp and T are equal, fire then
-      fire t0 + solvespike
-    end
   end
 
   def solvespike
