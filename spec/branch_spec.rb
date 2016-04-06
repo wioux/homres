@@ -8,8 +8,6 @@ RSpec.describe Branch do
   end
 
   describe "#fire" do
-    pending "it should add weight to connected branches"
-
     pending "it should decrease the branch's own membrane potential"
 
     pending "it should reset the threshold potential"
@@ -21,9 +19,5 @@ RSpec.describe Branch do
 
   describe "#add(weight)" do
     pending "it should increase membrane potential"
-
-    pending "it should #fire if membrane potential gets high enough"
-
-    pending "it should #fire if membrane potential gets low enough"
   end
 end
