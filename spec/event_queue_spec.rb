@@ -23,8 +23,8 @@ RSpec.describe EventQueue do
     end
   end
 
-  describe "#pop" do
-    it "should dequeue the next event" do
+  describe "#at and #pop" do
+    it "should enqueue and dequeue the next event" do
       event1, event2 = double, double
 
       queue.at(20){ event2 }
