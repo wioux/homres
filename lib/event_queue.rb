@@ -6,7 +6,7 @@ class EventQueue
 
   def initialize
     @time = 0.0
-    @events=PriorityQueue.new
+    @events = PriorityQueue.new
   end
 
   def pop
