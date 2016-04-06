@@ -11,7 +11,7 @@ class EventQueue
 
   def pop
     if @events.min
-      @time += @events.min[1]
+      @time = @events.min[1]
       @events.delete_min[0]
     end
   end

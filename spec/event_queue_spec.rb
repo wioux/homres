@@ -11,7 +11,7 @@ RSpec.describe EventQueue do
       expect(queue.time).to eq(0.0)
     end
 
-    it "should increase by a pop'd event's time" do
+    it "should equal the time of the last popped event" do
       queue.at(10){ }
       queue.at(20){ }
 
@@ -19,7 +19,7 @@ RSpec.describe EventQueue do
       expect(queue.time).to eq(10.0)
 
       queue.pop
-      expect(queue.time).to eq(30.0)
+      expect(queue.time).to eq(20.0)
     end
   end
 
