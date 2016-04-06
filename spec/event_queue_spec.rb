@@ -34,23 +34,4 @@ RSpec.describe EventQueue do
       expect(queue.pop.call).to eq(event2)
     end
   end
-
-  describe "#cancelall" do
-    it "should clear the event queue" do
-      queue.at(10){ }
-      queue.cancelall
-
-      expect(queue.pop).to be_nil
-    end
-
-    it "should reset #time" do
-      queue.at(10){ }
-      queue.pop
-
-      expect(queue.time).not_to eq(0.0)
-
-      queue.cancelall
-      expect(queue.time).to eq(0.0)
-    end
-  end
 end
