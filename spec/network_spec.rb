@@ -8,18 +8,8 @@ RSpec.describe Network do
     pending "should initially be 0.0"
   end
 
-  describe "#tick(dt)" do
-    it "should update all branches by dt" do
-      network.branches = [double, double]
-
-      network.branches.each{ |x| expect(x).to receive(:incr).with(10.0) }
-      network.tick(10.0)
-
-      network.branches.each{ |x| expect(x).to receive(:incr).with(20.0) }
-      network.tick(20.0)
-    end
-
-    pending "should increment #time by dt"
+  describe "#tick" do
+    pending "should cycle the simulation by one event"
   end
 
   describe "#create(u, v)" do
