@@ -6,9 +6,9 @@ require 'event_queue'
 RSpec.describe EventQueue do
   let(:queue){ EventQueue.new }
 
-  describe "#current" do
+  describe "#time" do
     it "should start at 0.0" do
-      expect(queue.current).to eq(0.0)
+      expect(queue.time).to eq(0.0)
     end
 
     it "should increase by a pop'd event's time" do
@@ -16,10 +16,10 @@ RSpec.describe EventQueue do
       queue.insert(double(call: nil), 20)
 
       queue.pop.inspect
-      expect(queue.current).to eq(10.0)
+      expect(queue.time).to eq(10.0)
 
       queue.pop
-      expect(queue.current).to eq(30.0)
+      expect(queue.time).to eq(30.0)
     end
   end
 
@@ -45,14 +45,14 @@ RSpec.describe EventQueue do
       expect(queue.pop).to be_nil
     end
 
-    it "should reset #current" do
+    it "should reset #time" do
       queue.insert(double(call: nil), 10)
       queue.pop
 
-      expect(queue.current).not_to eq(0.0)
+      expect(queue.time).not_to eq(0.0)
 
       queue.cancelall
-      expect(queue.current).to eq(0.0)
+      expect(queue.time).to eq(0.0)
     end
   end
 end
