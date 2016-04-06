@@ -12,10 +12,10 @@ RSpec.describe EventQueue do
     end
 
     it "should increase by a pop'd event's time" do
-      queue.insert(double, 10)
-      queue.insert(double, 20)
+      queue.at(10){ }
+      queue.at(20){ }
 
-      queue.pop.inspect
+      queue.pop
       expect(queue.time).to eq(10.0)
 
       queue.pop
@@ -27,24 +27,24 @@ RSpec.describe EventQueue do
     it "should dequeue the next event" do
       event1, event2 = double, double
 
-      queue.insert(event2, 20)
-      queue.insert(event1, 10)
+      queue.at(20){ event2 }
+      queue.at(10){ event1 }
 
-      expect(queue.pop).to eq(event1)
-      expect(queue.pop).to eq(event2)
+      expect(queue.pop.call).to eq(event1)
+      expect(queue.pop.call).to eq(event2)
     end
   end
 
   describe "#cancelall" do
     it "should clear the event queue" do
-      queue.insert(double, 10)
+      queue.at(10){ }
       queue.cancelall
 
       expect(queue.pop).to be_nil
     end
 
     it "should reset #time" do
-      queue.insert(double, 10)
+      queue.at(10){ }
       queue.pop
 
       expect(queue.time).not_to eq(0.0)
